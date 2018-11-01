@@ -1,0 +1,239 @@
+.Dashboard-1 {
+    background-color: #F2F2F2;
+    overflow: scroll;
+    background-image: radial-gradient(circle at 50% 0, #ffff, #f1eceb);
+    border: solid 1px #ccc3cc;
+    height: 100vh;
+    
+}
+
+.header {
+    background-color: #ff9770;
+    height: 8%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100vw;
+    box-shadow: 0 14px 28px 0 rgba(0,0,0,0.25), 0 10px 10px 0 rgba(0,0,0,0.26)
+}
+
+.head-nav-container {
+    display: flex;
+    width: 75%;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+
+}
+.profile-nav1-container {
+    display: flex;
+    position: relative;
+    justify-content: space-evenly;
+    height: 40%;
+    width: 14%;
+    
+}
+
+.nav2, .nav3 {
+    color: white;
+    font-size: 25px;
+}
+
+.nav1 {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 35px;
+    color: white;
+
+}
+.house-icon{
+    width: auto;
+    height: 85%;
+}
+.search-icon {
+    width: auto;
+    height: 25px;
+    margin: 5px;
+}
+
+.main-container-1 {
+  display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10%;
+    margin-top: 2%;
+} 
+.empty-1 {
+    height: 10vh;
+}
+.top-container-1 {
+    display: flex;
+    justify-content: space-evenly;
+    width: 55vw;
+    margin-bottom: 2%;
+    margin-top: 5%;
+}
+.left-box-1 {
+    width: 55vw;
+    height: 25vh;
+    box-shadow:0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.2);
+    background-color: #FFF;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+
+}
+.top-box-middle-1 {
+    width: 20%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 10px;
+    text-align: left;
+
+}
+.profile-picture-box-1 {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: center;
+    width: 20%;
+    height: 80%;
+    border-color: #FF9160;
+    border-style: solid;
+    margin-left: 2%;
+    /* margin-right: 2%; */
+}
+
+.profile-name-1{
+    font-size: 30px;
+    font-weight: bold;
+    height: 60%;
+    width: 50%;
+    line-height: 1.5em;
+    margin-top: 10%;
+}
+.edit, .edit-input {
+    position: absolute;
+    bottom: 4px;
+
+}
+
+.edit {
+    background-image: radial-gradient(circle at 50% 0, #ffff, #FF9160);
+    border: solid .5px #fad1ca;
+    border-radius: 4px;
+}
+.edit-input {
+    width: 80%;
+    background-color: transparent;
+    border-color: transparent;
+    color: transparent;
+}
+
+.top-box-right-1{
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+
+}
+button.update {
+    background-color: #403D39;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.2);
+    color: white;
+    height: 35px;
+    width: 25%;
+    margin-right: 4%;
+}
+
+button.cancel {
+    background-image: radial-gradient(circle at 50% 0,#FBFAFA, #F3EFEE);
+    border: solid 1px #ccc3cc;
+    width: 100%;
+    height: 35px;
+}
+.cancel-box {
+    width: 25%;
+    margin-right: 5%;
+
+}
+  .main-box-1 {
+      display: flex;
+    background-color: #fff;
+    width: 55vw;
+    height: 70vh;
+    box-shadow:0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.2)
+}
+
+.sort-dropdown-1 {
+    float: right;
+    width: 100px;
+    height: 20px;
+    margin-right: 5px;
+    margin-left: 5px;
+    
+    
+}
+.left-input{
+    border-color: #FFCBB4;
+    border-style: solid;
+    width: 60%;
+    height: 35px;
+    font-size: 14px;
+
+}
+.input-container {
+    width: 100%;
+    margin-bottom: 5%;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-left: 50%;
+}
+.main-leftside {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 100%;
+    align-items: center;
+    margin-top: 3%;
+    margin-left: 5%;
+    
+}
+.gender, .eyecolor, .haircolor, .birthday, .birthmonth, .birthyear, .hobby {
+    font-size: 20px;
+    height: 40px;
+    margin-bottom: 5px;
+
+}
+.dropdown-left{
+    display: flex;
+    flex-direction: column;
+    width: 62%;
+    height: 15%;
+    text-align: left;
+    margin-left: 13%;
+}
+.dropdown-right {
+    display: flex;
+    flex-direction: column;
+    width: 62%;
+    height: 15%;
+    text-align: left;
+    margin-bottom: 3%;
+
+
+}
+.main-right {
+    margin-top: 3%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    
+}

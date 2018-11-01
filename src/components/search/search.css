@@ -1,0 +1,208 @@
+.Search {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #F2F2F2;
+    background-image: radial-gradient(circle at 50% 0, #ffff, #f1eceb);
+    border: solid 1px #ccc3cc; 
+    /* height: 100%; */
+    padding-bottom: 15%;
+}
+
+.header {
+    background-color: #ff9770;
+    height: 8%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100vw;
+    box-shadow: 0 14px 28px 0 rgba(0,0,0,0.25), 0 10px 10px 0 rgba(0,0,0,0.26)
+}
+
+.head-nav-container {
+    display: flex;
+    width: 80vw;
+    align-items: center;
+    justify-content: space-between;
+}
+.nav1-container {
+    display: flex;
+    position: relative;
+    justify-content: space-evenly;
+    width: 15%;
+    /* height: 30%; */
+
+}
+.icons {
+    margin: 5px;
+}
+.nav2, .nav3 {
+    color: white;
+    font-size: 25px;
+}
+.nav1 {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 35px;
+    color: white;
+
+
+}
+
+
+.main-container {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-wrap: flex;
+    margin-top: 3%;
+    /* justify-content: center; */
+}
+a.nav3{
+    text-decoration: none;
+    text-decoration-line: none;
+}
+.icons {
+    width: 80%;
+    height: auto;
+}
+
+.left-box {
+    width: 26vw;
+    height: 25vh;
+    box-shadow:0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.2);
+    background-color: #FFF;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-bottom: 5%;
+
+}
+.left-box-right {
+    width: 50%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    margin-left: 10px;
+    text-align: left;
+
+}
+
+.search-button {
+    background-color: #403D39;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.2);
+    color: white;
+    height: 30px;
+    width: 17%;
+    margin-left: 1%;
+    margin-right: 2%;
+    font-size: 15px;
+
+}
+.reset-button {
+    background-image: radial-gradient(circle at 50% 0,#FBFAFA, #F3EFEE);
+    border: solid 1px #ccc3cc;
+    width: 17%;
+    height: 30px;
+    font-size: 15px;
+}    
+.main-search {
+    display: flex;
+    justify-content: center;
+    background-color: #fff;
+    width: 60vw;
+    box-shadow:0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.2);
+    overflow-wrap: flex;
+    flex-wrap: wrap;
+    margin-bottom: 3%;
+    margin-top: 7%;
+    padding-bottom: 20%;
+    
+
+}
+.top-box {
+    display: flex;
+    margin: 5%;
+    height: 30px;
+    width: 50vw;
+
+}
+.add-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 55%;
+}
+button.add-friend {
+    height: 30px;
+    width: 50%;
+    border-radius: 1px;
+    background-image: radial-gradient(circle at 50% 0, #ff9770, #ff7a6e);
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.2);
+    color: white;
+    margin-right: 3%;
+    margin-top: 10px;
+}
+.delete-friend {
+        height: 30px;
+        width: 50%;
+        border-radius: 1px;
+        background-color: #403D39;
+        box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.2);
+        color: white;
+        margin-right: 3%;
+        margin-top: 10px;
+
+}
+.friend-picture {
+    width: 100px;
+    height: 100px;
+    border-color: #FF9160;
+    border-style: solid;
+    margin: 10px;
+    object-fit: fill;
+}
+
+.friend-box2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2%;
+    box-shadow:0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.2);
+    flex-wrap: wrap;
+    overflow-wrap: flex;
+    width: 40%;
+    height: 150px;
+    
+}
+span.friend-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: black;
+}
+
+.search-dropdown {
+    width: 110%;
+    height: 30px;
+    font-size: 15px;   
+}
+.dropdown-container {
+    font-size: 14px;
+    line-height: 20px;
+    margin-left: 5%;
+}
+.search-input {
+    width: 29%;
+    font-size: 16px;
+    
+}
+
+.pagination {
+    display: flex;
+    flex-direction: row;
+    width: 60vw;
+    list-style: none;
+}

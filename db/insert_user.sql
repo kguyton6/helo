@@ -1,0 +1,5 @@
+-- insert into helo_users(user_id, helo_users.picture)
+-- select (auth.user_id, auth.picture)
+-- from auth
+-- where auth.user_id = $1
+-- returning user_id
