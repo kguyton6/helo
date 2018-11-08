@@ -4,7 +4,7 @@ import search from './search.png'
 import './dashboard.css'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
-
+import Search from '../search/Search'
 // import {ADD_FRIEND} from '../../ducks/constants'
 
 class Dashboard extends Component {
@@ -18,15 +18,18 @@ class Dashboard extends Component {
             user_id: null,
             name: '',
             friends: [],
-            dropDown: ''
+            dropDown: '',
+            sortedFriends: []
 
         }
         this.showFriends = this.showFriends.bind(this)
         this.addFriend = this.addFriend.bind(this)
         this.componentDidMount = this.componentDidMount.bind(this)
-        this.sort = this.sort.bind(this)
+        this.handleSort = this.handleSort.bind(this)
+
 
     }
+    
     componentDidMount() {
         axios.get('/api/auth/setUser')
             .then((res) => {
@@ -65,7 +68,9 @@ class Dashboard extends Component {
                                 </div>
 
                                 <div className='add-container'>
-                                    <span className='friend-name'>{`${friends[i].first_name} ${friends[i].last_name}`}</span>
+                                {friends[i].last_name !== null ?
+                                    <span className='friend-name'>{`${friends[i].first_name} ${friends[i].last_name}`}</span> :
+                                <span className='friend-name'>{`${friends[i].first_name}`}</span> }
                                     <button onClick={() => this.addFriend(friends[i].user_id)} className='add-friend'>Add Friend</button>
 
                                 </div>
@@ -90,31 +95,37 @@ class Dashboard extends Component {
                 return this.componentDidMount()
             })
     }
-    sort(value){
-        this.setState({dropDown: value})
+    handleSort(value){
         console.log(value)
-        let friends = this.state.friends
-        let newFriendList = []      
-        for(let i = 0; i < friends.length; i++){
-            console.log(friends)
-            if(this.state.dropdown === 'last_name'){
-                friends.sort(function(a, b){
-                    if(a.first_name < b.first_name){
+        this.setState({dropDown: value },
+        () => {
+            let friends = this.state.friends
+            let compare = (a, b) => {
+                const nameA = a[this.state.dropDown]
+                const nameB = b[this.state.dropDown]
+                console.log(nameA, nameB)
+                
+                    if(nameA < nameB ){
                         return -1
                     }
-                    if(a.first_name > b.first_name){
+                    if(nameA > nameB){
                         return 1
-                    }
+                    } 
+                  }
+                  if(this.state.dropDown){
+                      console.log(this.state.dropDown)
+                      let sortedFriends = friends.sort(compare)
+                      this.setState({sortedFriends})
+                  } else {
+                      this.setState({sortedFriends: []})
+                  }
                 })
-                return 0
-
+                
             }
-                    return newFriendList
-            } 
-         
-    }
-    render() {
+        
 
+    render() {
+         
         return (
             <div className='Dashboard'>
                 <div className='header'>
@@ -126,16 +137,18 @@ class Dashboard extends Component {
                                 src={search} alt='search' /></Link>
                         </div>
                         <span className='nav2'>Dashboard</span>
-                        <Link to='https://helo-login/v2/logout'><span className='nav3'>Logout</span></Link>
+                        <a href='http://localhost:4800/api/logout'className='nav3' ><button className='logout'>Logout</button></a> 
                     </div>
-                </div>
+                </div> 
                 <div className='empty'></div>
                 <div className='main-container'>
                     <div className='top-container'>
                         <div className='left-box'>
                             <div className='profile-picture-box'><img src={this.state.picture} width='100%' height='100%' alt='' /></div>
                             <div className='left-box-right'>
-                                <span className='profile-name'>{`${this.state.first_name} ${this.state.last_name}`}</span>
+                            { this.state.last_name !== null ?
+                                <span className='profile-name'>{`${this.state.first_name} ${this.state.last_name}`}</span>:
+                            <span className='friend-name'>{`${this.state.first_name}`}</span> }
                                 <Link to='/profile'><button className='edit-profile'>Edit Profile</button></Link> </div>
                         </div>
 
@@ -155,10 +168,11 @@ class Dashboard extends Component {
 
                             <div className='dropdown-container'>
                                 Sort By <br />
-                                <select className='sort-dropdown' onChange={(e) => this.sort(e.target.value)}>
+                                <select onChange={(e) => this.handleSort(e.target.value)} className='sort-dropdown'>
+                                    <option>Choose One</option>
                                     <option value='first_name'>First Name</option>
                                     <option value='last_name'>Last Name</option>
-                                    <option value='gender'>Gender</option>
+
                                 </select>
                             </div>
                         </div>
@@ -172,21 +186,5 @@ class Dashboard extends Component {
     }
 }
 
-// function mapStateToProps(state) {
-//     return {
-//         first_name: state.first_name,
-//         last_name: state.last_name,
-//         picture: state.picture,
-
-//     }
-// }
-
-// export const mapDispatchToProps = dispatch => {
-//     return {
-//     addFirst: first_name => dispatch({ type: ADD_FIRSTNAME, payload: first_name}),
-//     addLast: last_name => dispatch({ type: ADD_LASTNAME, payload: last_name}),
-
-//     }
-// }
 
 export default Dashboard

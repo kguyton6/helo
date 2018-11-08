@@ -1,7 +1,8 @@
+
 module.exports = {
     setUser: (req, res, next) => {
         const dbInstance = req.app.get('db')
-    
+        console.log(req.session)
         dbInstance.setUser(req.session.user.user_id)
         .then((user) => res.status(200).send(user))
         .catch(err => console.log(err, 'setUser error'))
@@ -24,7 +25,7 @@ module.exports = {
 
         find_friends: (req, res, next) => {
             const dbInstance = req.app.get('db')
-            console.log(req.session.user.user_id)
+            console.log(req.session)
 
             dbInstance.find_friends(req.session.user.user_id, req.session.user.user_id, req.session.user.user_id)
             .then((data) => res.status(200).send(data))
@@ -32,9 +33,8 @@ module.exports = {
         },
         sorted_friends: (req, res, next ) => {
             const dbInstance = req.app.get('db')
-            console.log(req.params.id)
 
-            dbInstance.sorted_friends(req.params.id)
+            dbInstance.sorted_friends(req.session.user.user_id)
             .then((data) => res.status(200).send(data))
             .catch(err => console.log(err, 'sort error'))
         },
@@ -42,7 +42,7 @@ module.exports = {
         allUsers: (req, res, next) => {
             const dbInstance = req.app.get('db')
             const {user_id} = req.session.user
-            dbInstance.allUsers( user_id, user_id, user_id )
+            dbInstance.allUsers( user_id )
             .then((friends) => res.status(200).send(friends))
             .catch(err => console.log(err, 'get friends error'))
         },
@@ -81,5 +81,10 @@ module.exports = {
         dbInstance.delete_friend(req.params.id, req.session.user.user_id)
         .then(() => res.status(200).send('friend deleted'))
     })
-  }
+  },
+    logout: (req, res) => {
+        req.session.destroy()
+        console.log('session destroyed')
+        res.redirect('https://helo-login.auth0.com/v2/logout?returnTo=http%3A%2F%2Flocalhost%3A3000')
+    }
 }

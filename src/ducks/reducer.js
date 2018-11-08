@@ -1,72 +1,64 @@
-import {ADD_BIRTHDAY,ADD_BIRTHYEAR,ADD_BIRTHMONTH,ADD_EYECOLOR,ADD_FIRSTNAME,ADD_GENDER,ADD_HAIRCOLOR,ADD_LASTNAME, ADD_HOBBY, ADD_NEW, ADD_FRIEND} from './constants'
-import { finished } from 'stream';
+import axios from 'axios';
 
-
-
+// Set up initial state
 const initialState = {
-    first_name: '',
-    last_name:'',
-    gender:'',
-    hairColor:'',
-    eyeColor:'',
-    hobby:'',
-    birthDay: null,
-    birthMonth: null,
-    birthYear: null,
-    newHobby: '',
-    friendId: null
-}
+    userInfo: {},
+    nonFriends: {},
+    friends: {}
 
-const reducer = (state = initialState, action) => {
-    console.log('Reducer hit: Action ---->', action)
-    switch (action.type){
-        case ADD_FIRSTNAME:
-        Object.assign({}, state, { first_name: action.payload})
+};
 
-        case ADD_LASTNAME:
-        Object.assign({}, state, { last_name: action.payload })
+// action types
+const GET_USER_INFO = 'GET_USER_INFO';
+const GET_NON_FRIENDS = 'GET_NON_FRIENDS'
+const GET_FRIENDS = 'GET_FRIENDS'
 
-        case ADD_GENDER:
-        Object.assign({}, state, { gender: action.payload })
 
-        case ADD_HAIRCOLOR:
-        Object.assign({}, state, { hairColor: action.payload })
-
-        case ADD_EYECOLOR:
-        Object.assign({}, state, { eyeColor: action.payload })
-
-        case ADD_HOBBY:
-        Object.assign({}, state, { hobby: action.payload })
-
-        case ADD_BIRTHDAY:
-        Object.assign({}, state, { birthDay: action.payload })
-
-        case ADD_BIRTHMONTH:
-        Object.assign({}, state, { birthMonth: action.payload })
-
-        case ADD_BIRTHYEAR:
-        Object.assign({}, state, { birthYear: action.payload })
-
-        case ADD_NEW:
-        Object.assign({}, state, {newHobby: action.payload})
-
-        case ADD_FRIEND:
-        Object.assign({}, state, {friendId: action.payload})
-        default: return state
-
+// action creators
+export function getUserInfo() {
+    const userInfo = axios.get('/api/auth/setUser').then( res => {
+        console.log(res.data)
+        return res.data
+    })
+    return {
+        type: GET_USER_INFO,
+        payload: userInfo
     }
-       
 }
 
-export const addFirst = first_name => ({type: ADD_FIRSTNAME, payload: first_name})
-export const addLast = last_name => ({type: ADD_LASTNAME, payload: last_name})
-export const addBirthDay = birthday => ({type: ADD_BIRTHDAY, payload: birthday})
-export const addBirthMonth = birthMonth => ({type: ADD_BIRTHMONTH, payload: birthMonth})
-export const addBirthYear = birthYear => ({type: ADD_BIRTHYEAR, payload: birthYear})
-export const addGender = gender => ({type: ADD_GENDER, payload: gender})
-export const addHairColor = hairColor => ({type: ADD_HAIRCOLOR, payload: hairColor})
-export const addEyeColor = eyeColor => ({type: ADD_EYECOLOR, payload: eyeColor})
-export const addHobby = hobby => ({type: ADD_HOBBY, payload: hobby})
-export const addNew = newHobby => ({type: ADD_NEW, payload: newHobby})
-export const addFriend = friendId => ({type: ADD_FRIEND, payload: friendId})
-export default reducer
+export function getNonFriends() {
+    const nonFriendsInfo = axios.get('/api/findFriends').then( res => {
+        console.log(res.data)
+        return res.data
+    })
+    return {
+        type: GET_NON_FRIENDS,
+        payload: nonFriendsInfo
+    }
+}
+
+export function getFriends() {
+    const friendsInfo = axios.get('/api/friends').then( res => {
+        return res.data
+    })
+    return {
+        type: GET_FRIENDS,
+        payload: friendsInfo
+    }
+}
+
+// reducer function
+export default function reducer(state = initialState, action) {
+    switch (action.type) {
+        case GET_USER_INFO + '_FULFILLED':
+        return Object.assign({}, state, { user: action.payload })
+
+        case GET_NON_FRIENDS:
+            return Object.assign({}, state, { nonFriends: action.payload })
+        case GET_FRIENDS:
+            return Object.assign({}, state, { friends: action.payload })
+        default:
+            return state;
+    }
+
+}

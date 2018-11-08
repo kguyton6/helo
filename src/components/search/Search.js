@@ -3,10 +3,12 @@ import home from './home.png'
 import search from './search.png'
 import './search.css'
 import axios from 'axios'
-import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-// import Pagination from "react-js-pagination";
+import SearchInput, { createFilter } from 'react-search-input'
+import ReactPaginate from 'react-paginate'
+import Pagination from './Pagination'
 
+const KEYS_TO_FILTER = ['last_name', 'first_name']
 
 
 class Search extends Component {
@@ -17,89 +19,43 @@ class Search extends Component {
             allUsers: [],
             myFriends: [],
             input: '',
-            dropDown: '',
-        
+            dropDown: 'first',
+            disabled: false,
+            numberPerPage: 6,
+            numberOfPages: 10,
+            currentPage: 1,
+            everyone: []
 
 
         }
-        this.reset = this.reset.bind(this)
         this.componentDidMount = this.componentDidMount.bind(this)
+        this.handleInput = this.handleInput.bind(this)
+
+
 
     }
     componentDidMount() {
-        axios.get('/api/allUsers')
+        axios.get('/api/findFriends')
             .then((res) => {
-                this.setState({
-                    allUsers: res.data
-                })
+                this.setState({ allUsers: res.data })
             },
                 axios.get('/api/friends')
                     .then((res) => {
-                        console.log(res.data)
-                        this.setState({ myFriends: res.data })
-                    })
-            )
+                        this.setState({ myFriends: res.data, }, () => {
+                            let everyone = this.state.allUsers.concat(this.state.myFriends)
+                            this.setState({everyone: everyone})
+                        })
+                    },
+               ))
+    }
+
+    handleDrop(value) {
+        this.setState({ dropDown: value })
+
+    }
+
+
        
-    }
-
-    showFriends() {
-        let myFriends = this.state.myFriends
-        let friend = []
-        if (this.state.myFriends && this.state.myFriends.length > 0) {
-            for (let i in myFriends) {
-                console.log(myFriends)
-                friend.push(
-                    <div className='friend-box2'>
-                        <div className='friend-picture'>
-                            {myFriends[i].picture !== null ?
-                                <img src={myFriends[i].picture} width='100%' height='100%' />
-                                : <img src='https://robohash.org/helo?bgset=bg1' alt='No Image' width='100%' height='100%' />}
-                        </div>
-
-                        <div className='add-container'>
-                            <span className='friend-name'>{`${myFriends[i].first_name} ${myFriends[i].last_name}`}</span>
-                            <button onClick={() => this.removeFriend(myFriends[i].user_id, myFriends[i].first_name)} className='delete-friend'>Remove Friend</button>
-
-                        </div>
-                    </div>
-                )
-            }
-
-            return friend
-        }
-    }
-
-    showUsers() {
-        console.log(this.state.allUsers)
-        let allUsers = this.state.allUsers
-        let users = []
-        if (this.state.allUsers && this.state.allUsers.length > 0) {
-            for (let i in allUsers) {
-                console.log(allUsers[i])
-                users.push(
-                    <div className='friend-box2'>
-                        <div className='friend-picture'>
-                            {allUsers[i].picture !== null ?
-                                <img src={allUsers[i].picture} width='100%' height='100%' />
-                                : <img src='https://robohash.org/helo?bgset=bg1' alt='No Image' width='100%' height='100%' />}
-                        </div>
-
-                        <div className='add-container'>
-                            <span className='friend-name'>{`${allUsers[i].first_name} ${allUsers[i].last_name}`}</span>
-                            <button onClick={() => this.addFriend(allUsers[i].user_id, allUsers[i].first_name)} className='add-friend'>Add Friend</button>
-
-                        </div>
-                    </div>
-
-                )
-            }
-
-        }
-
-        return users
-    }
-
-
 
     removeFriend(friendId, name) {
         axios.post(`/api/delete/${friendId}`)
@@ -122,49 +78,64 @@ class Search extends Component {
                 return this.componentDidMount()
             })
     }
+
     handleInput(value) {
-       this.setState({input: value})
-       
+        this.setState({ input: value })
     }
 
-    
-   handleDrop(value){
-        this.setState({ dropDown: value})
 
-   }
-  
-    handleSearch(value){
-        if(this.state.dropDown === 'last'){
-        axios.get(`/api/last/${value}`)
-        .then((res) => {
-            this.setState({
-                allUsers: res.data,
-                myFriends: null
-            })
-        })
+    handleSearch() {
+        if(this.state.dropDown !== 'last') {
+        var filteredList = this.state.everyone.filter(createFilter(this.state.input, KEYS_TO_FILTER[1]))
         } else {
-            axios.get(`/api/first/${value}`)
-            .then((res) => {
-                this.setState({
-                    allUsers: res.data,
-                    myFriends: null
-                })
-            })
+            var filteredList = this.state.everyone.filter(createFilter(this.state.input, KEYS_TO_FILTER[0]))
         }
+        this.setState({everyone: filteredList})
     }
+
+
+
     reset() {
-        this.setState({ input: '' })
         return this.componentDidMount()
     }
 
-    // handlePageChange(pageNumber) {
-    //     console.log(`active page is ${pageNumber}`);
-    //     this.setState({ activePage: pageNumber });
+    // handlePageClick = (number) => {
+    //    this.setState({currentPage: number})
     // }
 
-    render() {
+    
 
+    render() {
+        console.log(this.state.everyone)
+        var begin = ((this.state.currentPage - 1) * this.state.numberPerPage);
+        var end = begin + this.state.numberPerPage;
+        var pageList = this.state.everyone.slice(begin, end);
+        let users = []
+         users.push(pageList.map(user => {
+            return (
+                <div className='friend-box2'>
+                    <div className='friend-picture'>
+                        {user.picture !== null ?
+                            <img src={user.picture} width='100%' height='100%' />
+                            : <img src='https://robohash.org/helo?bgset=bg1' alt='No Image' width='100%' height='100%' />}
+                    </div>
+
+                    <div className='add-container'>
+                        {user.last_name !== null ?
+                            <span className='friend-name'>{`${user.first_name} ${user.last_name}`}</span> :
+                            <span className='friend-name'>{`${user.first_name}`}</span>}
+                        {user.friend_id > 0 ?
+                            <button onClick={() => this.removeFriend(user.user_id, user.first_name)} className='delete-friend'>Remove Friend</button> :
+                            <button onClick={() => this.addFriend(user.user_id, user.first_name)} className='add-friend'>Add Friend</button>}
+
+                    </div>
+                </div>
+            )
+        })
+        )
+    
         return (
+            
             <div className='Search'>
                 <div className='header'>
                     <div className='head-nav-container'>
@@ -175,7 +146,7 @@ class Search extends Component {
                                 src={search} alt='search' /></Link>
                         </div>
                         <span className='nav2'>Search</span>
-                        <Link to='/'><span className='nav3'>Logout</span></Link>
+                        <a href='http://localhost:4800/api/logout' ><button className='logout'>Logout</button></a>
                     </div>
                 </div>
                 <div className='space'></div>
@@ -187,39 +158,30 @@ class Search extends Component {
                                 <option value='last'>Last Name</option>
                             </select>
                         </div>
-                        <input onChange={(e) => this.handleInput(e.target.value)} placeholder=' Search..' className='search-input' />
-                        <button onClick={() => this.handleSearch(this.state.input)} className='search-button'>Search</button>
-                        <button onClick={this.reset} className='reset-button'>Reset</button>
+                        <SearchInput placeholder='Search...' className='search-input' id='SearchInput'onChange={this.searchUpdated.bind(this)} />
+
+                        <button onClick={this.handleSearch.bind(this)} className='search-button'>Search</button>
+
+                        <button onClick={this.reset.bind(this)} className='reset-button'>Reset</button>
                     </div>
+                        {users}
 
-                    {this.showFriends()}
-                    {this.showUsers()}
-                    
+
+                <footer><div className='buttons'> </div></footer>
                 </div>
+               
             </div>
-
-
         )
     }
-}
-
-function mapStateToProps(state) {
-    return {
-        first_name: state.first_name,
-        picture: state.picture,
-        friendId: state.friendId,
-
-
+    searchUpdated(term) {
+        this.setState({ input: term })
     }
+
 }
 
-// export const mapDispatchToProps = dispatch => {
-//     return {
-//     addFriend: friendId => dispatch({ type: ADD_FRIEND, payload: friendId}) 
-//     }
-// }
 
-export default connect(mapStateToProps)(Search)
+
+export default Search
 
 
 

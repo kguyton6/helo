@@ -5,7 +5,7 @@ import './profile.css'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import{ addFirst, addLast, addGender, addHairColor, addEyeColor, addBirthDay, addBirthMonth, addBirthYear, addHobby } from '../../ducks/reducer'
+// import{ addFirst, addLast, addGender, addHairColor, addEyeColor, addBirthDay, addBirthMonth, addBirthYear, addHobby } from '../../ducks/reducer'
 // import { ADD_NEW, ADD_FIRSTNAME, ADD_LASTNAME, ADD_GENDER, ADD_HAIRCOLOR, ADD_EYECOLOR, ADD_HOBBY, ADD_BIRTHDAY, ADD_BIRTHMONTH, ADD_BIRTHYEAR } from '../../ducks/constants'
 
 class Profile extends Component {
@@ -16,13 +16,13 @@ class Profile extends Component {
             picture: '',
             first_name: '',
             last_name: '',
-            gender: '', 
-            hairColor: '',
-            eyeColor: '', 
-            hobby: '', 
-            birthDay: null, 
-            birthMonth: null, 
-            birthYear: null,
+            gender: 'Select', 
+            hairColor: 'Select',
+            eyeColor:'Select', 
+            hobby: 'Select', 
+            birthDay: 'Select', 
+            birthMonth: 'Select', 
+            birthYear: 'Select',
             input: '',
             edit: false,
 
@@ -42,12 +42,12 @@ class Profile extends Component {
                     last_name: res.data[0].last_name,
                     picture: res.data[0].picture,
                     gender: res.data[0].gender,
-                    hairColor: res.data[0].hairColor,
-                    eyeColor: res.data[0].eyeColor,
+                    hairColor: res.data[0].hair_color,
+                    eyeColor: res.data[0].eye_color,
                     hobby: res.data[0].hobby,
-                    birthDay: res.data[0].birthDay,
-                    birthMonth: res.data[0].birthMonth,
-                    birthYear: res.data[0].birthYear
+                    birthDay: res.data[0].birthday,
+                    birthMonth: res.data[0].birthmonth,
+                    birthYear: res.data[0].birthyear
                 })
 
             })
@@ -127,7 +127,7 @@ class Profile extends Component {
                                 <Link to='/search'><img className='search-icon' src={search} alt='search' /></Link>  </div>
                         </div>
                         <span className='nav2'>Profile</span>
-                        <Link to='/' ><span className='nav3'>Logout</span></Link>
+                        <a to='http://localhost:4800/api/logout' ><button className='logout'>Logout</button></a>
                     </div>
                 </div>
                 <div className='empty1'></div>
@@ -141,7 +141,9 @@ class Profile extends Component {
                             </div> 
 
                             <div className='top-box-middle-1'>
-                                <span className='profile-name-1'>{`${this.state.first_name} ${this.state.last_name}`}</span>
+                            {this.state.last_name !== null ?
+                                <span className='profile-name-1'>{`${this.state.first_name} ${this.state.last_name}`}</span>:
+                            <span className='profile-name-1'>{`${this.state.first_name}`}</span> }
                             </div>
                             <div className='top-box-right-1'>
                                 <button onClick={this.update} className='update'>Update</button>
@@ -162,7 +164,8 @@ class Profile extends Component {
                             <div className='dropdown-left'>
                                 Gender
                             <select className='gender' onChange={(e) => this.addGender(e.target.value)}>
-                                    <option value={this.state.gender}>Choose One</option>
+                            {}
+                                    <option value={this.state.gender}>{this.state.gender}</option>
                                     <option value='male'>Male</option>
                                     <option value='female'>Female</option>
                                     <option value='undecided'>Undecided</option>
@@ -170,22 +173,22 @@ class Profile extends Component {
                             <div className='dropdown-left'>
                                 Hair Color
                             <select className='haircolor' onChange={(e) => this.addHairColor(e.target.value)}>
-                                    <option value={this.state.hairColor}>Choose One</option>
-                                    <option value='brown'>Brown</option>
-                                    <option value='black'>Black</option>
-                                    <option value='blonde'>Blonde</option>
-                                    <option value='red'>Red</option>
-                                    <option value='gray'>Gray</option>
-                                    <option value='white'>White</option>
+                                    <option value={this.state.hairColor}>{this.state.hairColor}</option>
+                                    <option value='Brown'>Brown</option>
+                                    <option value='Black'>Black</option>
+                                    <option value='Blonde'>Blonde</option>
+                                    <option value='Red'>Red</option>
+                                    <option value='Gray'>Gray</option>
+                                    <option value='White'>White</option>
                                     <option value='none'>None of these</option>
                                 </select></div>
                             <div className='dropdown-left'>
                                 Eye Color
                             <select className='eyecolor' onChange={(e) => this.addEyeColor(e.target.value)}>
-                                    <option value={this.state.eyeColor}>Color</option>
-                                    <option value='brown'>Brown</option>
-                                    <option value='green'>Green</option>
-                                    <option value='blue'>Blue</option>
+                                    <option value={this.state.eyeColor}>{this.state.eyeColor}</option>
+                                    <option value='Brown'>Brown</option>
+                                    <option value='Green'>Green</option>
+                                    <option value='Blue'>Blue</option>
                                 </select>
                             </div>
                         </div>
@@ -195,39 +198,39 @@ class Profile extends Component {
                                 Hobby
 
                                     <select className='hobby' onChange={(e) => this.addHobby(e.target.value)}>
-                                        <option value={this.state.hobby}>Choose One</option>
-                                        <option value='soccer'>Soccer</option>
-                                        <option value='football'>Football</option>
-                                        <option value='baseball'>Baseball</option>
-                                        <option value='snowboard'>Snowboard</option>
-                                        <option value='wakeboard'>WakeBoard</option>
-                                        <option value='garden'>Garden</option>
-                                        <option value='read'>Read</option>
-                                        <option value='exercise'>Exercise</option>
+                                        <option value={this.state.hobby}>{this.state.hobby}</option>
+                                        <option value='Soccer'>Soccer</option>
+                                        <option value='Football'>Football</option>
+                                        <option value='Baseball'>Baseball</option>
+                                        <option value='Snowboard'>Snowboard</option>
+                                        <option value='Wakeboard'>WakeBoard</option>
+                                        <option value='Garden'>Garden</option>
+                                        <option value='Read'>Read</option>
+                                        <option value='Exercise'>Exercise</option>
                                       </select>
                             </div>
 
                             <div className='dropdown-right'>
                                 Birth Month
                             <select className='birthmonth' onChange={(e) => this.addBirthMonth(e.target.value)}>
-                                    <option value={this.state.birthMonth} >Month</option>
-                                    <option value='1'>January</option>
-                                    <option value='2'>February</option>
-                                    <option value='3'>March</option>
-                                    <option value='4'>April</option>
-                                    <option value='5'>May</option>
-                                    <option value='6'>June</option>
-                                    <option value='7'>July</option>
-                                    <option value='8'>August</option>
-                                    <option value='9'>September</option>
-                                    <option value='10'>October</option>
-                                    <option value='11'>November</option>
-                                    <option value='12'>December</option>
+                                    <option value={this.state.birthMonth} >{this.state.birthMonth}</option>
+                                    <option value='January'>January</option>
+                                    <option value='Febuary'>February</option>
+                                    <option value='March'>March</option>
+                                    <option value='April'>April</option>
+                                    <option value='May'>May</option>
+                                    <option value='June'>June</option>
+                                    <option value='July'>July</option>
+                                    <option value='August'>August</option>
+                                    <option value='September'>September</option>
+                                    <option value='October'>October</option>
+                                    <option value='November'>November</option>
+                                    <option value='December'>December</option>
                                 </select></div>
                             <div className='dropdown-right'>
                                 Birthday Day
                             <select className='birthday' onChange={(e) => this.addBirthDay(e.target.value)}>
-                                    <option value={this.state.birthDay}>Day</option>
+                                    <option value={this.state.birthDay}>{this.state.birthDay}</option>
                                     <option value='1'>1</option>
                                     <option value='2'>2</option>
                                     <option value='3'>3</option>
@@ -250,7 +253,7 @@ class Profile extends Component {
                             <div className='dropdown-right'>
                                 Birth Year
                             <select className='birthyear' onChange={(e) => this.addBirthYear(e.target.value)}>
-                                    <option value={this.state.birthYear}>Year</option>
+                                    <option value={this.state.birthYear}>{this.state.birthYear}</option>
                                     <option value='1948'>1948</option>
                                     <option value='1984'>1984</option>
                                     <option value='1985'>1985</option>

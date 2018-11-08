@@ -17,7 +17,8 @@
     align-items: center;
     position: fixed;
     width: 100vw;
-    box-shadow: 0 14px 28px 0 rgba(0,0,0,0.25), 0 10px 10px 0 rgba(0,0,0,0.26)
+    box-shadow: 0 14px 28px 0 rgba(0,0,0,0.25), 0 10px 10px 0 rgba(0,0,0,0.26);
+    text-decoration: none;
 }
 
 .head-nav-container {
@@ -25,6 +26,7 @@
     width: 80vw;
     align-items: center;
     justify-content: space-between;
+    text-decoration: transparent;
 }
 .nav1-container {
     display: flex;
@@ -37,10 +39,12 @@
 .icons {
     margin: 5px;
 }
-.nav2, .nav3 {
+.nav2, .logout {
     color: white;
     font-size: 25px;
+    text-decoration: transparent;
 }
+
 .nav1 {
     display: flex;
     align-items: center;
@@ -59,9 +63,11 @@
     margin-top: 3%;
     /* justify-content: center; */
 }
-a.nav3{
+.logout{
     text-decoration: none;
-    text-decoration-line: none;
+    background-color: transparent;
+    border-style: none;
+
 }
 .icons {
     width: 80%;
@@ -96,7 +102,7 @@ a.nav3{
     color: white;
     height: 30px;
     width: 17%;
-    margin-left: 1%;
+    margin-left: 10%;
     margin-right: 2%;
     font-size: 15px;
 
@@ -118,9 +124,15 @@ a.nav3{
     flex-wrap: wrap;
     margin-bottom: 3%;
     margin-top: 7%;
-    padding-bottom: 20%;
-    
+    padding-bottom: 10%;
 
+
+}
+.search{
+    width: 60vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 .top-box {
     display: flex;
@@ -182,6 +194,10 @@ span.friend-name {
     font-size: 24px;
     font-weight: bold;
     color: black;
+    width: 100%;
+    text-align: center;
+    overflow: wrap;
+    overflow-wrap: break-word;
 }
 
 .search-dropdown {
@@ -194,15 +210,28 @@ span.friend-name {
     line-height: 20px;
     margin-left: 5%;
 }
-.search-input {
-    width: 29%;
-    font-size: 16px;
-    
+
+#SearchInput, .search-input {
+    width: 12vw;
+    height: 30px;
+    font-size: 20px;
+    border-color:#ff9770;
+    border-style: solid .5px;
 }
 
-.pagination {
+button.pageList  {
+    width: 50px;
     display: flex;
     flex-direction: row;
-    width: 60vw;
-    list-style: none;
+}
+
+.footer {
+    background-color: #ff9770;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 45vw;
+    height: 5vh;
+    text-decoration: none;
+    margin-top: 10px;
 }

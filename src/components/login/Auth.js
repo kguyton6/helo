@@ -16,8 +16,6 @@ class Auth extends Component {
         window.location = `https://${REACT_APP_DOMAIN}/authorize?client_id=${REACT_APP_CLIENT_ID}&scope=openid%20profile%20email&redirect_uri=${url}&response_type=code`
     }
 
-    
-
     render(){
         return(
             <div className='Login'>
@@ -27,7 +25,6 @@ class Auth extends Component {
             <span className='helo' >Helo</span>
             <button onClick={this.login}className='login'>Login/Register</button>
             </div>
-            
             </div>
             </div>
         )
@@ -35,18 +32,3 @@ class Auth extends Component {
 }
 
 export default Auth
-
-const webAuth = new auth0.WebAuth({
-    domain:       'YOUR_AUTH0_DOMAIN',
-    clientID:     'YOUR_CLIENT_ID'
-  });
-  
-  webAuth.signup({ 
-    connection: 'CONNECTION', 
-    email: 'EMAIL', 
-    password: 'PASSWORD',
-    user_metadata: { plan: 'silver', team_id: 'a111' }
-  }, function (err) { 
-    if (err) return alert('Something went wrong: ' + err.message); 
-      return alert('success signup without login!') 
-  });

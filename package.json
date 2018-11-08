@@ -13,16 +13,24 @@
     "express-session": "^1.15.6",
     "griddle-react": "^1.0.0",
     "http-proxy-middleware": "^0.19.0",
+    "jquery": "^3.3.1",
+    "jsrsasign": "^8.0.12",
+    "jw-react-pagination": "^1.0.7",
     "massive": "^5.5.1",
+    "passport": "^0.4.0",
+    "passport-auth0": "^1.1.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-js-pagination": "^3.0.2",
-    "react-paginate": "^5.2.4",
+    "react-paginate": "^5.3.1",
     "react-pagination-table": "^2.0.2",
     "react-redux": "^5.0.7",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.0.5",
+    "react-search-field": "0.0.3",
+    "react-search-input": "^0.11.3",
+    "react-select": "^2.1.1",
     "redux": "^4.0.1",
     "semantic-ui-react": "^0.83.0"
   },
@@ -41,6 +49,5 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ],
-  "proxy": "http://localhost:4800"
+  ]
 }
